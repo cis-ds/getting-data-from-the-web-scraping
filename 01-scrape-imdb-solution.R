@@ -14,12 +14,6 @@ html_text(x = cast)
 # Use SelectorGadget to find a CSS selector combination that
 # identifies just the cast member names
 cast2 <- html_nodes(x = frozen, css = "#titleCast td:nth-child(2) a")
-html_text(x = cast2)
 
-## cleaned up text
-cast2 %>%
-  html_text() %>%
-  # remove empty white space
-  str_trim() %>%
-  # remove new line indicator \n
-  str_remove_all(pattern = "\n")
+## remove empty white space
+html_text(x = cast2) %>% str_trim(side = "both")
