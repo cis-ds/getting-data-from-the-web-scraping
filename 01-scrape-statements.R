@@ -3,7 +3,6 @@ library(lubridate)
 library(rvest)
 
 # Read in the presidential statement html page
-# (https://www.imdb.com/title/tt2294629/)
 # Store it in an object called `dwight`
 dwight <- read_html(x = "https://www.presidency.ucsb.edu/documents/special-message-the-congress-relative-space-science-and-exploration")
 dwight
