@@ -1,36 +1,34 @@
 library(tidyverse)
 library(rvest)
 
-# Look up the cost of living for your hometown on
+# Look up the cost of living for Ithaca, NY on
 # Sperling's Best Places (http://www.bestplaces.net/). Then extract it
 # with `html_elements()` and `html_text()`.
 
-## demo using my hometown of Sterling, Virginia
 ## download the HTML page
-sterling <- read_html(x = "http://www.bestplaces.net/cost_of_living/city/virginia/sterling")
+ithaca <- read_html("https://www.bestplaces.net/cost_of_living/city/new_york/ithaca")
 
-## extract the cost of living value
-col <- html_elements(x = sterling, css = "#mainContent_dgCostOfLiving tr:nth-child(2) td:nth-child(2)")
-html_text(x = col)
+## extract the elements
+col <- html_elements(ithaca, css = "#mainContent_dgCostOfLiving tr:nth-child(2) td:nth-child(2)")
+html_text2(col)
 
 ## or use a piped operation
-sterling %>%
+ithaca %>%
   html_elements(css = "#mainContent_dgCostOfLiving tr:nth-child(2) td:nth-child(2)") %>%
-  html_text()
+  html_text2()
 
-# Visit the climate tab for your home town. Extract the climate statistics
+# Visit the climate tab for Ithaca, NY. Extract the climate statistics
 # of your hometown as a data frame with useful column names.
 
-## again, a demo with Sterling
 ## download HTML page
-sterling_climate <- read_html(x = "http://www.bestplaces.net/climate/city/virginia/sterling")
+ithaca_climate <- read_html("http://www.bestplaces.net/climate/city/new_york/ithaca")
 
 ## extract the climate table
-climate <- html_elements(x = sterling_climate, css = "table")
-html_table(x = climate, header = TRUE, fill = TRUE)[[1]]
+climate <- html_elements(ithaca_climate, css = "table")
+html_table(climate, header = TRUE, fill = TRUE)[[1]]
 
 ## or as a piped operation
-sterling_climate %>%
+ithaca_climate %>%
   html_elements(css = "table") %>%
   nth(1) %>%
   html_table(header = TRUE)
